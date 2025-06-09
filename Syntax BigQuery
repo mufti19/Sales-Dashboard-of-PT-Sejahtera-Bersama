@@ -1,0 +1,17 @@
+SELECT 
+    o.Date AS order_date,
+    pc.CategoryName AS category_name,
+    p.ProdName AS product_name,
+    p.Price AS product_price,
+    o.Quantity AS order_qty,
+    (o.Quantity * p.Price) AS total_sales,
+    c.CustomerEmail AS cust_email,
+    c.CustomerCity AS cust_city
+FROM `scenic-setup-461804-f1.1.Orders` o
+JOIN `scenic-setup-461804-f1.1.Customers` c ON o.CustomerID = c.CustomerID
+JOIN `scenic-setup-461804-f1.1.Products` p ON o.ProdNumber = p.ProdNumber
+JOIN `scenic-setup-461804-f1.1.ProductCategory` pc ON p.Category = pc.CategoryID
+ORDER BY 
+    1,
+    LOWER(TRIM(pc.CategoryName)),
+    LOWER(TRIM(p.ProdName));
